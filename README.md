@@ -1,8 +1,5 @@
 # Cloud_Managed_SQL_ERDs_Dummy_Data
 HHA504_assignment_6
-# Cloud_Managed_SQL_ERDs-_Dummy_Data
-HHA 504 Assignment 6
-
 Assignment Details
 Create a cloud-managed MySQL DB on either Azure or GCP
 
