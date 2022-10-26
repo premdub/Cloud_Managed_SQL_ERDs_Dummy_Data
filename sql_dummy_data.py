@@ -139,7 +139,7 @@ df_tables = pd.read_sql_query("SELECT * FROM treatments_procedures", db_tables)
 import pandas as pd
 loinc_codes = pd.read_csv('Social_Determinants_.csv', low_memory=False)
 # drop duplicates from ndc_codes_1k
-#loinc_codes = loinc_codes.drop_duplicates(subset=['Loinc_code'], keep='first')
+loinc_codes = loinc_codes.drop_duplicates(subset=['Loinc_code'], keep='first')
 loinc_codes.head()
 
 
@@ -232,6 +232,7 @@ for index, row in df_patients.iterrows():
     #add patient and social determinants to dataframe
     df_patient_social_determinants = df_patient_social_determinants.append(df_social_determinants_sample)
 print(df_patient_social_determinants.head(20))
+
 #upload fake patient social determinants to mysql database
 insertQuery = "INSERT INTO patient_social_determinants (mrn, loinc_code) VALUES (%s, %s)"
 for index, row in df_patient_social_determinants.iterrows():
@@ -258,9 +259,3 @@ for index, row in df_patients.iterrows():
     df_patient_procedures = df_patient_procedures.append(df_procedures_sample)
 print(df_patient_procedures.head(20))
 #upload fake patient conditions to mysql database
-insertQuery = "INSERT INTO patient_treatments_procedures (mrn, cpt_code) VALUES (%s, %s)"
-for index,row in df_patient_procedures.iterrows():
-    db_tables.execute(insertQuery, row['mrn'], row['cpt_code'])
-    print("inserted row: " + str(index))
-# query dbs to see if data is there
-df_tables = pd.read_sql_query("SELECT * FROM conditions", db_tables)
